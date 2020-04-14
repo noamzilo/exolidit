@@ -14,9 +14,9 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+    print(os.getcwd())
+    execute_from_command_line(sys.argv)  # re enters this file. I doubt that's desired behavior
 
 
 if __name__ == '__main__':
-    print(os.getcwd())
     main()
