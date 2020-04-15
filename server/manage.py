@@ -15,7 +15,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     print(os.getcwd())
-    execute_from_command_line(sys.argv)  # re enters this file. I doubt that's desired behavior
+    execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':
