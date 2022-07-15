@@ -15,10 +15,15 @@ class Currency(Enum):
     nis = 0
     usd = 1
     eur = 2
+    gbp = 3
 
 
 currencies = {
     "₪": Currency.nis,
+    "$": Currency.usd,
+    "€": Currency.eur,
+    "£": Currency.gbp,
+
 }
 
 
@@ -38,7 +43,7 @@ def parse_currency(line_split: List[str]):
 
 def split_line_to_parts(line: str):
     line_split = line.split()
-    currency = parse_currency(line_split)
+    # currency = parse_currency(line_split)
     currency = Currency.nis
 
     line_clean = [word for word in line_split if not any(c in word for c in currencies.keys())]
@@ -109,6 +114,8 @@ def merge_money_date_lines(all_lines: List[str]) -> List[str]:
         relevant_line = all_lines[r]
         if "פירוט עסקות לחיוב עתידי" in relevant_line:
             break
+        if "לא לתשלום - לידיעה בלבד" in relevant_line:
+            break
         r += 1
 
         is_money = is_money_line(relevant_line)
@@ -132,81 +139,106 @@ def merge_money_date_lines(all_lines: List[str]) -> List[str]:
 
 def main():
     pdf_folder_path = r"C:\Users\noam.s\Desktop\important\money\cal"
-    # pdf_name = r"2020_10_.pdf"
-    pdf_name = r"2020_09_.pdf"
-    # pdf_name = r"2020_12.pdf"
-    pdf_path = os.path.join(pdf_folder_path, pdf_name)
+    pdf_names = [
+        r"2020_04_.pdf",
+        r"2020_05_.pdf",
+        r"2020_06_.pdf",
+        r"2020_07_.pdf",
+        r"2020_08_.pdf",
+        r"2020_09_.pdf",
+        r"2020_10_.pdf",
+        r"2020_11.pdf",
+        r"2020_12.pdf",
+        r"2021_01.pdf",
+        r"2021_02.pdf",
+        r"2021_03.pdf",
+        r"2021_04.pdf",
+        r"2021_05.pdf",
+        r"2021_06.pdf",
+        r"2021_07.pdf",
+        r"2021_08.pdf",
+        r"2021_09.pdf",
+        r"2021_10.pdf",
+        r"2021_11.pdf",
+        r"2021_12.pdf",
+        r"2022_01.pdf",
+        r"2022_02.pdf",
+        r"2022_03.pdf",
+        ]
 
-    raw = parser.from_file(pdf_path)
-    content: str = raw["content"]
+    dfs = []
+    for pdf_ind, pdf_name in enumerate(pdf_names):
 
-    lines = list(filter(lambda s: len(s) > 0, map(lambda s: s.strip(), content.split("\n"))))
+        pdf_path = os.path.join(pdf_folder_path, pdf_name)
 
-    a = find_hebrew_phrase_in_raw("17/09/2020", content)
+        raw = parser.from_file(pdf_path)
+        content: str = raw["content"]
 
-    fixed_hebrew_lines: List[str] = []
-    for line_i, line in enumerate(lines):
-        if should_be_inverted(line):
-            fixed_hebrew_line = []
-            for word in line.split():
-                is_numeric_ = is_numeric(word)
-                fixed_hebrew_word = word[::-1] if not is_numeric_ else word
-                fixed_hebrew_line.append(fixed_hebrew_word)
-            fixed_hebrew_line_str = " ".join(reversed(fixed_hebrew_line))
-        else:
-            fixed_hebrew_line_str = line
-        fixed_hebrew_lines.append(fixed_hebrew_line_str)
+        lines = list(filter(lambda s: len(s) > 0, map(lambda s: s.strip(), content.split("\n"))))
 
-    irrelevant_phrases = [
-        "מסגרת אשראי לחשבון",
-        "ניצלתם בפועל",
-        "סך התחייבויות באשראי לכרטיס",
-        'סך החיובים הצפויים למועד החיוב הבא בש"ח',
-        # 'הוראת קבע',
-        'סה"כ לתאריך',
-        "מסגרת אשראי בתוקף עד",
-        "הנתונים נכונים לתאריך",
-        "מועד החיוב הבא הינו",
-        "פירוט עסקות שנצברו עד",
-        '-ל ישדוח בויח ףד',
-    ]
-    relevant_lines = []
-    for line in fixed_hebrew_lines:
-        for irrelevant_phrase in irrelevant_phrases:
-            if irrelevant_phrase in line:
-                break
-        else:
-            relevant_lines.append(line)
+        fixed_hebrew_lines: List[str] = []
+        for line_i, line in enumerate(lines):
+            if should_be_inverted(line):
+                fixed_hebrew_line = []
+                for word in line.split():
+                    is_numeric_ = is_numeric(word)
+                    fixed_hebrew_word = word[::-1] if not is_numeric_ else word
+                    fixed_hebrew_line.append(fixed_hebrew_word)
+                fixed_hebrew_line_str = " ".join(reversed(fixed_hebrew_line))
+            else:
+                fixed_hebrew_line_str = line
+            fixed_hebrew_lines.append(fixed_hebrew_line_str)
 
+        irrelevant_phrases = [
+            "מסגרת אשראי לחשבון",
+            "ניצלתם בפועל",
+            "סך התחייבויות באשראי לכרטיס",
+            'סך החיובים הצפויים למועד החיוב הבא בש"ח',
+            # 'הוראת קבע',
+            'סה"כ לתאריך',
+            "מסגרת אשראי בתוקף עד",
+            "הנתונים נכונים לתאריך",
+            "מועד החיוב הבא הינו",
+            "פירוט עסקות שנצברו עד",
+            '-ל ישדוח בויח ףד',
+        ]
+        relevant_lines = []
+        for line in fixed_hebrew_lines:
+            for irrelevant_phrase in irrelevant_phrases:
+                if irrelevant_phrase in line:
+                    break
+            else:
+                relevant_lines.append(line)
 
-    merged_lines = merge_money_date_lines(relevant_lines)
+        merged_lines = merge_money_date_lines(relevant_lines)
 
-    split_relevant_lines = list(map(lambda s: s.split(), merged_lines))
-    # clean shah sign
-    # lines_clean = []
-    # for line in split_relevant_lines:
-    #     line_clean = list(filter(lambda w: "₪" not in w, line))
-    #     lines_clean.append(line_clean)
+        split_relevant_lines = list(map(lambda s: s.split(), merged_lines))
+        # clean shah sign
+        # lines_clean = []
+        # for line in split_relevant_lines:
+        #     line_clean = list(filter(lambda w: "₪" not in w, line))
+        #     lines_clean.append(line_clean)
 
-    dates, business_names, charge_amounts, deal_amounts, currencies, card_showns = [], [], [], [], [], []
-    for line_num, line, in enumerate(merged_lines):
-        currency, date, business_name, charge_amount, deal_amount, card_shown = split_line_to_parts(line)
+        dates, business_names, charge_amounts, deal_amounts, currencies, card_showns = [], [], [], [], [], []
+        for line_num, line, in enumerate(merged_lines):
+            currency, date, business_name, charge_amount, deal_amount, card_shown = split_line_to_parts(line)
 
-        dates.append(date)
-        business_names.append(business_name)
-        charge_amounts.append(charge_amount)
-        deal_amounts.append(deal_amount)
-        currencies.append(currency)
-        card_showns.append(card_shown)
+            dates.append(date)
+            business_names.append(business_name)
+            charge_amounts.append(charge_amount)
+            deal_amounts.append(deal_amount)
+            currencies.append(currency)
+            card_showns.append(card_shown)
 
-    df = pd.DataFrame({
-        "date": dates,
-        "business_name": business_names,
-        "charge_amount": charge_amounts,
-        "deal_amounts": deal_amounts,
-        "currency": currencies,
-        "card_shown": card_showns}
-    )
+        df = pd.DataFrame({
+            "date": dates,
+            "business_name": business_names,
+            "charge_amount": charge_amounts,
+            "deal_amounts": deal_amounts,
+            "currency": currencies,
+            "card_shown": card_showns}
+        )
+        dfs.append(df)
     pass
 
 
