@@ -230,7 +230,7 @@ def main():
             currencies.append(currency)
             card_showns.append(card_shown)
 
-        df = pd.DataFrame({
+        df_ = pd.DataFrame({
             "date": dates,
             "business_name": business_names,
             "charge_amount": charge_amounts,
@@ -238,9 +238,12 @@ def main():
             "currency": currencies,
             "card_shown": card_showns}
         )
-        dfs.append(df)
+        dfs.append(df_)
+    df = pd.concat(dfs)
+    charges = df["charge_amount"]
+    n_months = len(dfs)
+    monthly_charge = charges.sum() / n_months
     pass
-
 
 if __name__ == "__main__":
     main()

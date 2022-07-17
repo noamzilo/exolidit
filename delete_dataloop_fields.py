@@ -5,8 +5,7 @@ from allegroai.backend_interface import DatasetVersion
 import shelve
 
 
-def main():
-    dataview_id = r"40fbb8320ccb4ac98fae490cb10703fc"
+def remove_dataloop_from_dataview_in_clearml(dataview_id):
     dataview = DataView.get(dataview_id=dataview_id)
     frames = [f for f in dataview]
     frames_with_dataloop_tasks = [f for f in frames if "dataloop_tasks" in f.metadata]
@@ -28,4 +27,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    dataview_id = r"40fbb8320ccb4ac98fae490cb10703fc"
+    remove_dataloop_from_dataview_in_clearml(dataview_id)
