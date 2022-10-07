@@ -7,6 +7,8 @@ from typing import List, Tuple, Set
 # windows only
 import ctypes
 from ctypes.util import find_library
+import gspread
+from upload_to_gspread import upload_to_gspread
 
 find_library("".join(("gsdll", str(ctypes.sizeof(ctypes.c_voidp) * 8), ".dll")))
 
@@ -138,6 +140,11 @@ def merge_money_date_lines(all_lines: List[str]) -> List[str]:
 
 
 def main():
+    df = _parse_raw()
+    upload_to_gspread(df)
+
+
+def _parse_raw():
     pdf_folder_path = r"C:\Users\noam.s\Desktop\important\money\cal"
     pdf_names = [
         r"2020_04_.pdf",
@@ -164,8 +171,7 @@ def main():
         r"2022_01.pdf",
         r"2022_02.pdf",
         r"2022_03.pdf",
-        ]
-
+    ]
     dfs = []
     for pdf_ind, pdf_name in enumerate(pdf_names):
 
@@ -244,6 +250,8 @@ def main():
     n_months = len(dfs)
     monthly_charge = charges.sum() / n_months
     pass
+    return df
+
 
 if __name__ == "__main__":
     main()

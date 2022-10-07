@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "exolidit",
+  "private_key_id": "f01ef3a306fa7d048cca55dfa8b15bc42019d890",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDocvEhiSFRkpmd\nASSfFlpfbriL1uXsmatw7RsM8C8jWHcHuvlv19HNC9Gdh2l2fMk8tkb0W7F3GsyQ\nSRFOLog91fpP7OPcAIVBWdjlges5+3YMhXzxfSeYq4lx+5nFzo3M2FFCbmKCMGou\naYh/saCyxOgK1Td5WOwsWi3Ggeo9Rqe8y5p01zu/GQAufc6aaNxtzHt3CMzPz8Uy\n6YmnfHx7ZE7KJEP37YhMoQNTKNCNccVxYg57LW7fjQ+gLEx1hCcCAM5L3tVrk4wq\nWTkWt7LBcpLg/CE17jCi7ui/TemNyrgUgysryEHFme4VV0fxX2m+D9RuOQCKk/FY\nGNqRHc5BAgMBAAECggEAFw7X1pDIylO1gzqKzHEmM9NC4TRHCIpR1Fjg1w64TlRH\nMnAcsDiDakii2XKGRqeoOqqGLVUvLHZvFlz5J308LI4eT3FbRQaUMWBdQJ77m3vT\nQPi45SeaFu3lK3Ze0Z1kuY43uVRD11BAKCx1ytzu6OzZa8GsyA/HFbs4UTmv57X7\nGo/gztGRPqHQSk7Jd0+dKRR8XRxx0WNyddrLpBvILRbn8cXN0Z58A37/Cc+CbWmu\n7WHZrt27EYjIa2vt+Lry8949dK/Y3TjB6CHij3GYMKqg1gqBKsPtcMHd7DSHta7T\n6xDcEUd2mwfsqx+hjBRABm4j9KmOiqrXh9WRFfreJQKBgQD+tfcTmX8cCjVTgmWd\n0chPh9qUilxZWPTo1Yi8VHyJXno7DTmla7Kd4sk6+7tU3NnA1uAdLDW3pKB2Nkdh\nDeOWVTLwkvnzjimwG0Fhf/l07H5nCpztZXhZGWDGKOUyP0cxD32mqnx6R0kSaEdd\nEWjs+bRTTwTmfIPU4S+7qTnK0wKBgQDpoCGxtm6HG1mdyElYCk60A1/og/k99JSJ\nYdtyXRBmEGOE7LFM3CgbcMXsTT8V+mKHTGOobg92raPKRj4s3YeckxUW0vNkKnPv\nehfGhmUaV2wPJLjHyc03ANwyLbkXTaBUL6NNXp86Gt03El8U0w3+BSDu6sU+PCj9\nmr3EoO6uGwKBgQC0tyIgE83tdQi0wVWbjZXTZ44bybcP5V+OOsKS7FaXmCKc9xsp\nVKob/yXK5YPaB/+vJEVKLW3HZ9Q5SvWF1LbemIBV09HnjbviKNRQet3gqVJdhVgl\nztJ+VNUmgylqZx75ngYGU/uRPjaICthnHc0WJWxdlzjg1wMp7MNTIBPS5QKBgQCG\nQc3bMLmnzuHbOKRdgd7kuCO/nUf4gLtzj9bqi+zGmph2ZQcm4kXyLwau211rpe5F\nTnLe8hDU5MiBj4hfhBdQtX2jFitk3ritYH6VSdqEHsUslq/RsHjMKSRhecEqUSPX\n/WBdMAlU/OcvpNEbSIZ7+jqI0kXzk+MCipCPlORVDQKBgQCAzOEC63hNYQtnMUOf\nwF5NBInkciZ1yA3zrGeothszMaB3sDLBZ2H+tWS/cGT6sj08msbQzriCUncv8Gds\nsqfSZqySjReeydKqX0pDXu8RP/Sbp3GwRwHdI6S15p57KDnKSxPpVZQ8zsRHwDmR\nef3uGP7xEBPh9OR90szAwD9V/w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "exolidit-bot@exolidit.iam.gserviceaccount.com",
+  "client_id": "107643812674266043535",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/exolidit-bot%40exolidit.iam.gserviceaccount.com"
+}
