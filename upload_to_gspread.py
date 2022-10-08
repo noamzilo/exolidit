@@ -2,15 +2,13 @@ import pandas as pd
 import gspread
 
 
-def upload_to_gspread(df: pd.DataFrame):
-    gc = gspread.service_account()
-    gc.login()
-    spreadsheet = gc.open("Exolidit_automation")
+def overwrite_gspread(input_df: pd.DataFrame, spreadsheet, sheet_name: str):
+
     sheet_name = "bank"
     # work_sheet = spreadsheet.worksheet("bank")
-    work_sheet_rows = [["index", *df.columns]]
+    work_sheet_rows = [["index", *input_df.columns]]
 
-    for row_ind, row in enumerate(df.iterrows()):
+    for row_ind, row in enumerate(input_df.iterrows()):
         row_ = [row_ind]
         for cell in row[1]:
             row_.append(str(cell))
